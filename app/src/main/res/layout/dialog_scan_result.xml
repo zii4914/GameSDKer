@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.noober.background.view.BLConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    app:bl_corners_radius="12dp"
+    app:bl_solid_color="#E0F2F1">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="点击结果复制"
+        android:textColor="#9374C8"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.noober.background.view.BLTextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_700"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxWidth="240dp"
+        android:maxLines="5"
+        android:minWidth="200dp"
+        android:padding="8dp"
+        android:textColor="@color/black"
+        android:textSize="12dp"
+        app:bl_corners_radius="12dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_title"
+        tools:text="扫描结果在这里哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈好安徽扫描结果在这里哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈好安徽扫描结果在这里哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈好安徽" />
+
+    <com.noober.background.view.BLButton
+        android:id="@+id/btn_back"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="返回"
+        app:bl_corners_bottomLeftRadius="12dp"
+        app:bl_pressed_solid_color="@color/btn_pressed"
+        app:bl_unPressed_solid_color="@color/btn_unpressed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        app:layout_constraintRight_toLeftOf="@id/btn_open_url" />
+
+    <com.noober.background.view.BLButton
+        android:id="@+id/btn_open_url"
+        style="@style/btn_purple"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="打开链接"
+        android:visibility="gone"
+        app:bl_stroke_color="#EB917B95"
+        app:bl_stroke_position="left|right"
+        app:bl_stroke_width="1.5px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btn_back"
+        app:layout_constraintRight_toLeftOf="@id/btn_continue" />
+
+    <com.noober.background.view.BLButton
+        android:id="@+id/btn_continue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="继续"
+        app:bl_corners_bottomRightRadius="12dp"
+        app:bl_pressed_solid_color="@color/btn_pressed"
+        app:bl_unPressed_solid_color="@color/btn_unpressed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/btn_open_url"
+        app:layout_constraintRight_toRightOf="parent" />
+</com.noober.background.view.BLConstraintLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".QrCodeActivity">
+
+    <EditText
+        android:id="@+id/edt_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="复制"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_content" />
+
+    <Button
+        android:id="@+id/btn_past"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="粘贴"
+        app:layout_constraintLeft_toRightOf="@id/btn_copy"
+        app:layout_constraintTop_toTopOf="@id/btn_copy" />
+
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:text="清空"
+        app:layout_constraintLeft_toRightOf="@id/btn_past"
+        app:layout_constraintTop_toTopOf="@id/btn_copy" />
+
+    <Button
+        android:id="@+id/btn_scan_qrcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="识别二维码"
+        app:layout_constraintLeft_toLeftOf="@id/btn_copy"
+        app:layout_constraintTop_toBottomOf="@id/btn_copy" />
+
+    <ImageView
+        android:id="@+id/iv_qrcode"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#F3E5F5"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6"
+        tools:src="@drawable/loading_failure_iamge" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
