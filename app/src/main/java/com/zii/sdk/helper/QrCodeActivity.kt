@@ -4,16 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.appcompat.app.AppCompatActivity
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder
 import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
+import com.zii.sdk.helper.base.BaseActivity
 import com.zii.sdk.helper.databinding.ActivityQrcodeBinding
 import kotlinx.coroutines.*
 
 
-class QrCodeActivity : AppCompatActivity(), TextWatcher {
+class QrCodeActivity : BaseActivity(), TextWatcher {
     private lateinit var binding: ActivityQrcodeBinding
 
     private val qrcodeSize = (ScreenUtils.getScreenWidth() * 0.6).toInt()

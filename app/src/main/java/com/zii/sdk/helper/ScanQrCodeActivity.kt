@@ -8,7 +8,6 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import cn.bingoogolapple.qrcode.core.BarcodeType
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.blankj.utilcode.util.ClipboardUtils
@@ -18,10 +17,11 @@ import com.luck.picture.lib.config.PictureMimeType
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.interfaces.SimpleCallback
+import com.zii.sdk.helper.base.BaseActivity
 import com.zii.sdk.helper.databinding.ActivityScanQrCodeBinding
 
 
-class ScanQrCodeActivity : AppCompatActivity(), QRCodeView.Delegate {
+class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
 
     private val rc_select_image = 10
 
