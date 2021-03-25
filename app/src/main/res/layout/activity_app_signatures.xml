@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.noober.background.view.BLConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    tools:context=".AppSignaturesActivity">
+
+    <AutoCompleteTextView
+        android:id="@+id/edt_package_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="com.zii.xxx"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_get_signatures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_copy"
+        app:layout_constraintTop_toBottomOf="@id/edt_package_name" />
+
+    <Button
+        android:id="@+id/btn_copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="复制"
+        app:layout_constraintLeft_toRightOf="@id/btn_get_signatures"
+        app:layout_constraintRight_toLeftOf="@id/btn_past"
+        app:layout_constraintTop_toTopOf="@id/btn_get_signatures" />
+
+    <Button
+        android:id="@+id/btn_past"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="粘贴"
+        app:layout_constraintLeft_toRightOf="@id/btn_copy"
+        app:layout_constraintRight_toLeftOf="@id/btn_clear"
+        app:layout_constraintTop_toTopOf="@id/btn_get_signatures" />
+
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="清空"
+        app:layout_constraintLeft_toRightOf="@id/btn_past"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_get_signatures" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_get_signatures">
+
+        <TableRow android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_copy_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="长按内容复制"
+                android:textColor="@color/btn_unpressed" />
+        </TableRow>
+
+        <TextView
+            android:id="@+id/label_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="20dp"
+            android:text="应用签名(微信)："
+            android:textColor="@color/text_default" />
+
+        <TextView
+            android:id="@+id/tv_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@color/bg_dialog"
+            android:hint="xxxxxxxxxx"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/label_md5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="MD5："
+            android:textColor="@color/text_default" />
+
+        <TextView
+            android:id="@+id/tv_md5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@color/bg_dialog"
+            android:hint="xxxxxxxxxx"
+            android:padding="8dp" />
+
+
+        <TextView
+            android:id="@+id/label_sha1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="12dp"
+            android:text="SHA-1："
+            android:textColor="@color/text_default" />
+
+        <TextView
+            android:id="@+id/tv_SHA1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@color/bg_dialog"
+            android:hint="xxxxxxxxxx"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/label_sha256"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="12dp"
+            android:text="SHA-256："
+            android:textColor="@color/text_default" />
+
+        <TextView
+            android:id="@+id/tv_sha256"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@color/bg_dialog"
+            android:hint="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            android:padding="8dp" />
+
+        <TableRow
+            android:gravity="center"
+            android:padding="12dp">
+
+            <Button
+                android:id="@+id/btn_copy_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="复制所有" />
+        </TableRow>
+
+    </TableLayout>
+
+</com.noober.background.view.BLConstraintLayout>

@@ -2,8 +2,8 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="8dp"
     android:layout_height="match_parent"
+    android:padding="8dp"
     tools:context=".MainActivity">
 
     <TableRow>
@@ -13,5 +13,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="二维码" />
+
+        <Button
+            android:id="@+id/btn_app_sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="应用签名" />
     </TableRow>
 </TableLayout>

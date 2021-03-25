@@ -11,4 +11,7 @@
     <color name="btn_pressed">#9575CD</color>
     <color name="btn_unpressed">#D1C4E9</color>
 
+    <color name="bg_dialog">#E0F2F1</color>
+    <color name="text_default">#15121B</color>
+
 </resources>

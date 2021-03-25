@@ -33,6 +33,9 @@ class MainActivity : BaseActivity() {
         binding.btnQrcode.setOnClickListener {
             startActivity(Intent(this, QrCodeActivity::class.java))
         }
+        binding.btnAppSign.setOnClickListener {
+            startActivity(Intent(this, AppSignaturesActivity::class.java))
+        }
     }
 
 

@@ -18,4 +18,28 @@
         <item name="bl_pressed_solid_color">@color/btn_pressed</item>
         <item name="bl_unPressed_solid_color">@color/btn_unpressed</item>
     </style>
+
+    <style name="btn_purple.corner8" parent="btn_purple">
+        <item name="bl_corners_radius">8dp</item>
+    </style>
+
+    <style name="tv_to_btn">
+        <item name="bl_pressed_solid_color">@color/btn_pressed</item>
+        <item name="bl_unPressed_solid_color">@color/btn_unpressed</item>
+        <item name="bl_corners_radius">4dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textColor">#4A148C</item>
+    </style>
+
+    <style name="dialog_default">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="bl_corners_radius">12dp</item>
+        <item name="bl_solid_color">@color/bg_dialog</item>
+    </style>
+
 </resources>
