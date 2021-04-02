@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.PermissionUtils
 import com.lxj.xpopup.XPopup
 import com.zii.sdk.helper.base.BaseActivity
 import com.zii.sdk.helper.databinding.ActivityMainBinding
+import com.zii.sdk.helper.topactivity.AppShortcutsActivity
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -36,6 +37,10 @@ class MainActivity : BaseActivity() {
         binding.btnAppSign.setOnClickListener {
             startActivity(Intent(this, AppSignaturesActivity::class.java))
         }
+        binding.btnTopActivity.setOnClickListener {
+            startActivity(Intent(this, AppShortcutsActivity::class.java))
+        }
+
     }
 
 
