@@ -28,5 +28,24 @@
             android:layout_marginLeft="12dp"
             android:text="当前Activity"
             android:textAllCaps="false" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/btn_dev_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开发者选项" />
+
+        <Button
+            android:id="@+id/btn_transport_online"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:text="在线传输" />
+
+
     </TableRow>
 </TableLayout>

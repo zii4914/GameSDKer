@@ -2,6 +2,7 @@ package com.zii.sdk.helper
 
 import android.Manifest
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -40,7 +41,13 @@ class MainActivity : BaseActivity() {
         binding.btnTopActivity.setOnClickListener {
             startActivity(Intent(this, AppShortcutsActivity::class.java))
         }
-
+        binding.btnDevSettings.setOnClickListener {
+            startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS))
+        }
+        binding.btnTransportOnline.setOnClickListener {
+            val url = "https://cp.anyknew.com/" //拷贝兔
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        }
     }
 
 
