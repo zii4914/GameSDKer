@@ -12,8 +12,8 @@ android {
         applicationId "com.zii.sdk.helper"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 2
-        versionName "1.01"
+        versionCode 3
+        versionName "1.1"
     }
 
     signingConfigs {
@@ -47,7 +47,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
 //            def enable = false
-            def enable = false
+            def enable = true
             if (enable) {
                 def build_time = new Date().format('yyyyMMddHHmm')
                 println("Pack Build Time:" + build_time)
@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.noober.background:core:1.6.5'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
-    implementation files('libs\\tbs_sdk_thirdapp_v4.3.0.93_43993_sharewithdownloadwithfile_withoutGame_obfs_20210220_114728.jar')
+    implementation files('libs/tbs_sdk_thirdapp_v4.3.0.93_43993_sharewithdownloadwithfile_withoutGame_obfs_20210220_114728.jar')
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.ljx.rxhttp:rxhttp:2.5.7'
     implementation 'com.squareup.okhttp3:okhttp:4.9.1' //rxhttp v2.2.2版本起，需要手动依赖okhttp
