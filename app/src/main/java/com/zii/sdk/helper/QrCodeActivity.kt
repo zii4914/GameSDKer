@@ -9,6 +9,7 @@ import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.zii.sdk.helper.base.BaseActivity
+import com.zii.sdk.helper.const.CommonConst
 import com.zii.sdk.helper.databinding.ActivityQrcodeBinding
 import kotlinx.coroutines.*
 
@@ -32,10 +33,23 @@ class QrCodeActivity : BaseActivity(), TextWatcher {
             binding.edtContent.setText(ClipboardUtils.getText())
             binding.edtContent.clearFocus()
         }
-        binding.btnScanQrcode.setOnClickListener {
+        binding.btnQrcodeScan.setOnClickListener {
             startActivity(Intent(this, ScanQrCodeActivity::class.java))
         }
         binding.btnClear.setOnClickListener { binding.edtContent.text.clear() }
+
+        binding.root.post(Runnable {
+            handleAction() //必须等view绘制完成，粘贴板才能获取到内容
+        })
+    }
+
+    private fun handleAction() {
+        if (CommonConst.Action.QRCODE_GENERATE_FROM_CLIPBOARD == intent.action) {
+            val text = ClipboardUtils.getText()
+            if (text.isNotEmpty()) {
+                binding.edtContent.setText(text)
+            }
+        }
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

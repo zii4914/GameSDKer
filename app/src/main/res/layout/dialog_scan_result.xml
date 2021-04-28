@@ -41,7 +41,7 @@
         android:id="@+id/btn_back"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="返回"
+        android:text="退出"
         app:bl_corners_bottomLeftRadius="12dp"
         app:bl_pressed_solid_color="@color/btn_pressed"
         app:bl_unPressed_solid_color="@color/btn_unpressed"
@@ -62,13 +62,13 @@
         app:bl_stroke_width="1.5px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/btn_back"
-        app:layout_constraintRight_toLeftOf="@id/btn_continue" />
+        app:layout_constraintRight_toLeftOf="@id/btn_share" />
 
     <com.noober.background.view.BLButton
-        android:id="@+id/btn_continue"
+        android:id="@+id/btn_share"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="继续"
+        android:text="分享"
         app:bl_corners_bottomRightRadius="12dp"
         app:bl_pressed_solid_color="@color/btn_pressed"
         app:bl_unPressed_solid_color="@color/btn_unpressed"

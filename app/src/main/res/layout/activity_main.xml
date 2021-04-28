@@ -1,51 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
     tools:context=".MainActivity">
 
-    <TableRow>
 
-        <Button
-            android:id="@+id/btn_qrcode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="二维码" />
+    <Button
+        android:id="@+id/btn_qrcode_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="生成二维码"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_qrcode_scan"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btn_app_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:text="应用签名" />
+    <Button
+        android:id="@+id/btn_qrcode_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="扫描二维码"
+        app:layout_constraintLeft_toRightOf="@id/btn_qrcode_generate"
+        app:layout_constraintRight_toLeftOf="@id/btn_qrcode_identify"
+        app:layout_constraintTop_toTopOf="@id/btn_qrcode_generate" />
 
-        <Button
-            android:id="@+id/btn_top_activity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:text="当前Activity"
-            android:textAllCaps="false" />
-
-    </TableRow>
-
-    <TableRow>
-
-        <Button
-            android:id="@+id/btn_dev_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="开发者选项" />
-
-        <Button
-            android:id="@+id/btn_transport_online"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:text="在线传输" />
+    <Button
+        android:id="@+id/btn_qrcode_identify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="识别二维码"
+        app:layout_constraintLeft_toRightOf="@id/btn_qrcode_scan"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_qrcode_generate" />
 
 
-    </TableRow>
-</TableLayout>
+    <Button
+        android:id="@+id/btn_top_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="当前Activity"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_generate"
+        app:layout_constraintRight_toRightOf="@id/btn_qrcode_generate"
+        app:layout_constraintTop_toBottomOf="@id/btn_qrcode_generate" />
+
+
+    <Button
+        android:id="@+id/btn_app_sign"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="应用签名"
+        app:layout_constraintBottom_toBottomOf="@id/btn_top_activity"
+        app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_scan"
+        app:layout_constraintRight_toRightOf="@id/btn_qrcode_scan"
+        app:layout_constraintTop_toTopOf="@id/btn_top_activity" />
+
+    <Button
+        android:id="@+id/btn_dev_settings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="开发者选项"
+        app:layout_constraintBottom_toBottomOf="@id/btn_top_activity"
+        app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_identify"
+        app:layout_constraintRight_toRightOf="@id/btn_qrcode_identify"
+        app:layout_constraintTop_toTopOf="@id/btn_top_activity" />
+
+    <Button
+        android:id="@+id/btn_transport_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="传输文字"
+        app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_generate"
+        app:layout_constraintRight_toRightOf="@id/btn_qrcode_generate"
+        app:layout_constraintTop_toBottomOf="@id/btn_top_activity" />
+
+    <Button
+        android:id="@+id/btn_transport_all"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="在线传输"
+        app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_scan"
+        app:layout_constraintRight_toRightOf="@id/btn_qrcode_scan"
+        app:layout_constraintTop_toTopOf="@id/btn_transport_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

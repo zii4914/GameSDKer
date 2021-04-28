@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">GameSDKer</string>
 
-    <string name="shortcut_action">当前Activity开关</string>
+    <string name="shortcut_label_top_activity">当前Activity</string>
+    <string name="shortcut_label_scan">扫描二维码</string>
+    <string name="shortcut_label_generate_qrcode">生成二维码</string>
+    <string name="shortcut_label_transport">在线传输</string>
 
     <string name="show_window">显示悬浮窗</string>
     <string name="use_toggle_notification">快速设置开关启用时关闭通知开关</string>

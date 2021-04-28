@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
     <shortcut
         android:enabled="true"
         android:icon="@drawable/ic_shortcut"
-        android:shortcutId="static"
-        android:shortcutShortLabel="@string/shortcut_action">
+        android:shortcutId="sc_top_activity"
+        android:shortcutShortLabel="@string/shortcut_label_top_activity">
         <intent
-            android:action="com.zii.sdk.helper.topactivity.ACTION_TOGGLE_WINDOW"
+            android:action="sdker.topactivity.ACTION_TOGGLE_WINDOW"
             android:targetClass="com.zii.sdk.helper.topactivity.AppShortcutsActivity"
             android:targetPackage="com.zii.sdk.helper" />
     </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_scan"
+        android:shortcutId="sc_scan"
+        android:shortcutShortLabel="@string/shortcut_label_scan">
+        <intent
+            android:action="sdker.qrcode.ACTION_SCAN"
+            android:targetClass="com.zii.sdk.helper.ScanQrCodeActivity"
+            android:targetPackage="com.zii.sdk.helper" />
+    </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_qrcode"
+        android:shortcutId="sc_generate_qrcode"
+        android:shortcutShortLabel="@string/shortcut_label_generate_qrcode">
+        <intent
+            android:action="sdker.qrcode.ACTION_GENERATE_FROM_CLIPBOARD"
+            android:targetClass="com.zii.sdk.helper.QrCodeActivity"
+            android:targetPackage="com.zii.sdk.helper" />
+    </shortcut>
+    <!--    <shortcut-->
+    <!--        android:enabled="true"-->
+    <!--        android:icon="@drawable/ic_shortcut"-->
+    <!--        android:shortcutId="sc_transport"-->
+    <!--        android:shortcutShortLabel="@string/shortcut_label_transport">-->
+    <!--        <intent-->
+    <!--            android:action="sdker.transport.ACTION_TEXT_FROM_CLIPBOARD"-->
+    <!--            android:targetClass="com.zii.sdk.helper.MainActivity"-->
+    <!--            android:targetPackage="com.zii.sdk.helper" />-->
+    <!--    </shortcut>-->
 </shortcuts>

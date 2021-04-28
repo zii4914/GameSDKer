@@ -11,6 +11,8 @@ import android.widget.Toast
 import cn.bingoogolapple.qrcode.core.BarcodeType
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.blankj.utilcode.util.ClipboardUtils
+import com.blankj.utilcode.util.IntentUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
@@ -18,15 +20,21 @@ import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
 import com.lxj.xpopup.interfaces.SimpleCallback
 import com.zii.sdk.helper.base.BaseActivity
+import com.zii.sdk.helper.const.CommonConst
 import com.zii.sdk.helper.databinding.ActivityScanQrCodeBinding
+import com.zii.sdk.helper.utils.MyUtils
 
-
+/**
+ * 扫描二维码
+ * 复制
+ * 打开链接
+ *
+ */
 class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
 
     private val rc_select_image = 10
 
     private lateinit var binding: ActivityScanQrCodeBinding
-    private var openFlash = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,21 +44,37 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
         binding.zxingView.setDelegate(this)
         binding.zxingView.setType(BarcodeType.ONLY_QR_CODE, null)
 
-        binding.ivFlashSwitch.setOnClickListener {
-            if (openFlash) {
-                binding.zxingView.closeFlashlight()
-            } else {
-                binding.zxingView.openFlashlight()
-            }
-            openFlash = !openFlash
-            binding.ivFlashSwitch.setImageResource(if (openFlash) R.drawable.ic_flash_off else R.drawable.ic_flash_on)
-        }
-        binding.ivSelectImage.setOnClickListener {
+        binding.tvDecodeImage.setOnClickListener {
             PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
                 .maxSelectNum(1)
                 .forResult(rc_select_image)
         }
+        binding.tvCopyAuto.setOnClickListener {
+            binding.tvCopyAuto.isSelected = toggleCopyNot()
+        }
+
+        //自动复制开关
+        binding.tvCopyAuto.isSelected = toggleCopy()
+
+        handleAction()
+    }
+
+    private fun handleAction() {
+        if (CommonConst.Action.QRCODE_GENERATE_FROM_CLIPBOARD == intent.action) {
+            binding.tvDecodeImage.callOnClick()
+        }
+    }
+
+    private fun toggleCopy(): Boolean {
+        return SPUtils.getInstance().getBoolean(CommonConst.Shared.KEY_SCAN_COPY_TOGGLE, true)
+    }
+
+    private fun toggleCopyNot(): Boolean {
+        val key = CommonConst.Shared.KEY_SCAN_COPY_TOGGLE
+        val not = !SPUtils.getInstance().getBoolean(key)
+        SPUtils.getInstance().put(key, not)
+        return not
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -92,7 +116,7 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     val tvTitle = findViewById<TextView>(R.id.tv_title)
                     val btnBack = findViewById<Button>(R.id.btn_back)
                     val btnOpenUrl = findViewById<Button>(R.id.btn_open_url)
-                    val btnContinue = findViewById<Button>(R.id.btn_continue)
+                    val btnShare = findViewById<Button>(R.id.btn_share)
 
                     val isResultEmpty = result.isNullOrEmpty()
                     val displayResult = result.orEmpty().ifEmpty { "扫描内容为空~" }
@@ -107,7 +131,12 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     tvResult.setOnClickListener(clickCopy)
                     tvTitle.setOnClickListener(clickCopy)
                     btnBack.setOnClickListener { dismissWith { finish() } }
-                    btnContinue.setOnClickListener { dismissWith { binding.zxingView.startSpot() } }
+                    btnShare.setOnClickListener {
+                        dismissWith {
+                            binding.zxingView.startSpot()
+                            startActivity(IntentUtils.getShareTextIntent(displayResult))
+                        }
+                    }
                     btnOpenUrl.setOnClickListener {
                         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(displayResult))
                         startActivity(browserIntent)
@@ -120,6 +149,14 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     val isUrl = !isResultEmpty
                             && (displayResult.startsWith("http://") || displayResult.startsWith("https://"))
                     btnOpenUrl.visibility = if (isUrl) View.VISIBLE else View.GONE
+
+                    //自动复制开关
+                    if (toggleCopy()) {
+                        tvResult.isEnabled = false
+                        tvTitle.visibility = GONE
+
+                        if (isResultEmpty.not()) MyUtils.copyAndToast(displayResult)
+                    }
                 }
 
                 override fun getPopupLayoutId(): Int {

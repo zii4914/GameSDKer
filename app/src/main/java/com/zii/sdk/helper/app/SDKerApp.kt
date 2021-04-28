@@ -9,6 +9,9 @@ import com.luck.picture.lib.engine.ImageEngine
 import com.luck.picture.lib.engine.PictureSelectorEngine
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.listener.OnResultCallbackListener
+import com.tencent.smtt.sdk.QbSdk
+import com.tencent.smtt.sdk.QbSdk.PreInitCallback
+
 
 class SDKerApp : Application(), IApp {
     override fun onCreate() {
@@ -18,6 +21,18 @@ class SDKerApp : Application(), IApp {
             .setBorderSwitch(false)
 
         PictureAppMaster.getInstance().app = this
+
+        val cb: PreInitCallback = object : PreInitCallback {
+            override fun onViewInitFinished(arg0: Boolean) {
+                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+                LogUtils.d("WebViewX5 初始化：${if (arg0) "成功" else "失败"}")
+            }
+
+            override fun onCoreInitFinished() {
+            }
+        }
+        //x5内核初始化接口
+        QbSdk.initX5Environment(applicationContext, cb)
     }
 
     override fun getAppContext(): Context {

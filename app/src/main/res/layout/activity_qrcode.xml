@@ -42,8 +42,9 @@
         app:layout_constraintTop_toTopOf="@id/btn_copy" />
 
     <Button
-        android:id="@+id/btn_scan_qrcode"
+        android:id="@+id/btn_qrcode_scan"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:text="识别二维码"
         app:layout_constraintLeft_toLeftOf="@id/btn_copy"
@@ -59,7 +60,7 @@
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_qrcode_scan"
         app:layout_constraintWidth_percent="0.6"
         tools:src="@drawable/loading_failure_iamge" />
 

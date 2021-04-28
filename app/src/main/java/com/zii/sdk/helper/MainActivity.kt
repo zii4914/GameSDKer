@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
 import com.lxj.xpopup.XPopup
 import com.zii.sdk.helper.base.BaseActivity
+import com.zii.sdk.helper.const.CommonConst
 import com.zii.sdk.helper.databinding.ActivityMainBinding
 import com.zii.sdk.helper.topactivity.AppShortcutsActivity
 
@@ -32,8 +33,16 @@ class MainActivity : BaseActivity() {
             }
             .request()
 
-        binding.btnQrcode.setOnClickListener {
+        binding.btnQrcodeGenerate.setOnClickListener {
             startActivity(Intent(this, QrCodeActivity::class.java))
+        }
+        binding.btnQrcodeScan.setOnClickListener {
+            startActivity(Intent(this, ScanQrCodeActivity::class.java))
+        }
+        binding.btnQrcodeIdentify.setOnClickListener {
+            startActivity(Intent(this, ScanQrCodeActivity::class.java).apply {
+                action = CommonConst.Action.QRCODE_IDENTIFY_FROM_IMAGE
+            })
         }
         binding.btnAppSign.setOnClickListener {
             startActivity(Intent(this, AppSignaturesActivity::class.java))
@@ -44,7 +53,10 @@ class MainActivity : BaseActivity() {
         binding.btnDevSettings.setOnClickListener {
             startActivity(Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS))
         }
-        binding.btnTransportOnline.setOnClickListener {
+        binding.btnTransportText.setOnClickListener {
+            startActivity(Intent(this, TransportActivity::class.java))
+        }
+        binding.btnTransportAll.setOnClickListener {
             val url = "https://cp.anyknew.com/" //拷贝兔
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }
