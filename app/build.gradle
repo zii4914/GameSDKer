@@ -46,8 +46,8 @@ android {
     // 打包自动生成名字
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-//            def enable = false
-            def enable = true
+            def enable = false
+//            def enable = true
             if (enable) {
                 def build_time = new Date().format('yyyyMMddHHmm')
                 println("Pack Build Time:" + build_time)

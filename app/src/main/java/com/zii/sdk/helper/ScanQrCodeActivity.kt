@@ -35,6 +35,7 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
     private val rc_select_image = 10
 
     private lateinit var binding: ActivityScanQrCodeBinding
+    private var isActionFinish = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +62,8 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
     }
 
     private fun handleAction() {
-        if (CommonConst.Action.QRCODE_GENERATE_FROM_CLIPBOARD == intent.action) {
+        if (CommonConst.Action.QRCODE_IDENTIFY_FROM_IMAGE == intent.action) {
+            isActionFinish = true
             binding.tvDecodeImage.callOnClick()
         }
     }
@@ -79,10 +81,15 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == rc_select_image && resultCode == RESULT_OK) {
-            data?.also {
-                val path = PictureSelector.obtainMultipleResult(it)?.get(0)?.realPath
-                binding.zxingView.decodeQRCode(path)
+        if (requestCode == rc_select_image) {
+            if (resultCode == RESULT_OK) {
+                data?.also {
+                    val path = PictureSelector.obtainMultipleResult(it)?.get(0)?.realPath
+                    binding.zxingView.decodeQRCode(path)
+                }
+                isActionFinish = false
+            } else if (isActionFinish) {
+                finish()
             }
         }
     }
@@ -146,6 +153,7 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     tvResult.isEnabled = !isResultEmpty
                     tvTitle.isEnabled = !isResultEmpty
                     tvTitle.visibility = if (isResultEmpty) View.GONE else View.VISIBLE
+                    btnShare.isEnabled = !isResultEmpty
                     val isUrl = !isResultEmpty
                             && (displayResult.startsWith("http://") || displayResult.startsWith("https://"))
                     btnOpenUrl.visibility = if (isUrl) View.VISIBLE else View.GONE
