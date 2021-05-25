@@ -12,8 +12,8 @@ android {
         applicationId "com.zii.sdk.helper"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 3
-        versionName "1.1"
+        versionCode 4
+        versionName "1.2"
     }
 
     signingConfigs {
@@ -46,14 +46,10 @@ android {
     // 打包自动生成名字
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
-            def enable = false
-//            def enable = true
-            if (enable) {
-                def build_time = new Date().format('yyyyMMddHHmm')
-                println("Pack Build Time:" + build_time)
-                if (variant.buildType.name == 'release') {
-                    output.outputFileName = '../../../../../release/GameSDKer_' + variant.buildType.name + '_v' + versionName + '_c' + versionCode + '.apk'
-                }
+            def build_time = new Date().format('yyyyMMddHHmm')
+            println("Pack Build Time:" + build_time)
+            if (variant.buildType.name == 'release') {
+                output.outputFileName = '../../../../../release/GameSDKer_' + variant.buildType.name + '_v' + versionName + '_c' + versionCode + '.apk'
             }
         }
     }
@@ -62,8 +58,8 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
@@ -71,7 +67,7 @@ dependencies {
     implementation 'com.blankj:utilcodex:1.30.6'
     implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.3.7'
     implementation 'com.lxj:xpopup:2.2.23'
-    implementation 'com.noober.background:core:1.6.5'
+    implementation 'com.github.JavaNoober.BackgroundLibrary:libraryx:1.6.9'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.93_43993_sharewithdownloadwithfile_withoutGame_obfs_20210220_114728.jar')

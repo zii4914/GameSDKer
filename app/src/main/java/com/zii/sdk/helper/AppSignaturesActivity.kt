@@ -1,15 +1,15 @@
 package com.zii.sdk.helper
 
 import android.content.pm.PackageManager
+import android.content.pm.Signature
 import android.os.Bundle
+import android.util.Base64
 import android.widget.ArrayAdapter
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.ClipboardUtils
-import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.zii.sdk.helper.base.BaseActivity
 import com.zii.sdk.helper.databinding.ActivityAppSignaturesBinding
 import com.zii.sdk.helper.utils.MyUtils
+import java.security.MessageDigest
 import java.util.*
 
 
@@ -37,12 +37,14 @@ class AppSignaturesActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+            val keyHash = getAppSignaturesKeyHash(appPackage)?.get(0)
             val md5 = AppUtils.getAppSignaturesMD5(appPackage)[0]
             val sha1 = AppUtils.getAppSignaturesSHA1(appPackage)[0]
             val sha256 = AppUtils.getAppSignaturesSHA256(appPackage)[0]
             val wechat = md5.replace(":", "").toLowerCase(Locale.getDefault())
 
             binding.tvWechat.text = wechat
+            binding.tvKeyHash.text = keyHash
             binding.tvMd5.text = md5
             binding.tvSHA1.text = sha1
             binding.tvSha256.text = sha256
@@ -66,6 +68,11 @@ class AppSignaturesActivity : BaseActivity() {
             MyUtils.copyAndToast(signature)
             return@setOnLongClickListener true
         }
+        binding.tvKeyHash.setOnLongClickListener {
+            val signature = binding.tvKeyHash.text.toString()
+            MyUtils.copyAndToast(signature)
+            return@setOnLongClickListener true
+        }
         binding.tvMd5.setOnLongClickListener {
             val signature = binding.tvMd5.text.toString()
             MyUtils.copyAndToast(signature)
@@ -83,10 +90,13 @@ class AppSignaturesActivity : BaseActivity() {
         }
         binding.btnCopyAll.setOnClickListener {
             val wechat = binding.tvWechat.text.toString()
+            val hashKey = binding.tvKeyHash.text.toString()
             val md5 = binding.tvMd5.text.toString()
             val sha1 = binding.tvSHA1.text.toString()
             val sha256 = binding.tvSha256.text.toString()
             val text = "应用签名:$wechat"
+                .plus("\n")
+                .plus("HashKey:$hashKey")
                 .plus("\n")
                 .plus("MD5:$md5")
                 .plus("\n")
@@ -96,6 +106,19 @@ class AppSignaturesActivity : BaseActivity() {
                 .plus("\n")
             MyUtils.copyAndToast(text)
         }
+    }
+
+    private fun getAppSignaturesKeyHash(appPackage: String): List<String>? {
+        val appSignatures = AppUtils.getAppSignatures(appPackage)
+        return appSignatures?.map { signature: Signature ->
+            try {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                return@map Base64.encodeToString(md.digest(), Base64.DEFAULT).trim()
+            } catch (e: Exception) {
+                return@map null
+            }
+        }?.filterNotNull()
     }
 
     private fun listInstalledApplication() {

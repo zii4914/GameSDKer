@@ -3,6 +3,7 @@ package com.zii.sdk.helper
 import android.Manifest
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -19,19 +20,7 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        PermissionUtils.permission(Manifest.permission.CAMERA)
-            .callback { isAllGranted, granted, deniedForever, denied ->
-                LogUtils.d(granted, deniedForever, denied)
-                if (!isAllGranted) {
-                    XPopup.Builder(this)
-                        .asConfirm(
-                            "缺少权限",
-                            "请开启相关权限->$denied"
-                        ) { PermissionUtils.launchAppDetailsSettings() }
-                        .show()
-                }
-            }
-            .request()
+        permissions()
 
         binding.btnQrcodeGenerate.setOnClickListener {
             startActivity(Intent(this, QrCodeActivity::class.java))
@@ -60,6 +49,28 @@ class MainActivity : BaseActivity() {
             val url = "https://cp.anyknew.com/" //拷贝兔
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }
+    }
+
+    private fun permissions() {
+        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            PermissionUtils.permission(
+                Manifest.permission.CAMERA,
+                Manifest.permission.QUERY_ALL_PACKAGES
+            )
+        } else {
+            PermissionUtils.permission(Manifest.permission.CAMERA)
+        }
+        permission.callback { isAllGranted, granted, deniedForever, denied ->
+            LogUtils.d("授权：", granted, "永远拒绝：", deniedForever, "普通拒绝：", denied)
+            if (!isAllGranted) {
+                XPopup.Builder(this)
+                    .asConfirm(
+                        "缺少权限",
+                        "请开启相关权限->$denied"
+                    ) { PermissionUtils.launchAppDetailsSettings() }
+                    .show()
+            }
+        }.request()
     }
 
 

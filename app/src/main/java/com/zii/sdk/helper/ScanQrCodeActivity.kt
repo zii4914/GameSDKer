@@ -36,6 +36,7 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
 
     private lateinit var binding: ActivityScanQrCodeBinding
     private var isActionFinish = false
+    private var dialogResult: BasePopupView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +113,18 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
     }
 
     override fun onScanQRCodeSuccess(result: String?) {
-        XPopup.Builder(this)
+        if (dialogResult == null) {
+            createResultDialog(result)
+        } else {
+            dialogResult?.dismissWith {
+                dialogResult = null
+                createResultDialog(result)
+            }
+        }
+    }
+
+    private fun createResultDialog(result: String?) {
+        dialogResult = XPopup.Builder(this)
             .setPopupCallback(object : SimpleCallback() {
                 override fun onDismiss(popupView: BasePopupView?) {
                     binding.zxingView.startSpot()
@@ -170,7 +182,7 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                 override fun getPopupLayoutId(): Int {
                     return R.layout.dialog_scan_result
                 }
-            }).show()
+            }).also { it.show() }
     }
 
     override fun onCameraAmbientBrightnessChanged(isDark: Boolean) {
