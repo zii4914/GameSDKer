@@ -8,8 +8,8 @@
         android:shortcutShortLabel="@string/shortcut_label_top_activity">
         <intent
             android:action="sdker.topactivity.ACTION_TOGGLE_WINDOW"
-            android:targetClass="com.zii.sdk.helper.topactivity.AppShortcutsActivity"
-            android:targetPackage="com.zii.sdk.helper" />
+            android:targetClass="com.zii.sdker.topactivity.AppShortcutsActivity"
+            android:targetPackage="com.zii.sdker" />
     </shortcut>
 
     <shortcut
@@ -19,8 +19,8 @@
         android:shortcutShortLabel="@string/shortcut_label_scan">
         <intent
             android:action="sdker.qrcode.ACTION_SCAN"
-            android:targetClass="com.zii.sdk.helper.ScanQrCodeActivity"
-            android:targetPackage="com.zii.sdk.helper" />
+            android:targetClass="com.zii.sdker.ScanQrCodeActivity"
+            android:targetPackage="com.zii.sdker" />
     </shortcut>
 
     <shortcut
@@ -30,8 +30,8 @@
         android:shortcutShortLabel="@string/shortcut_label_generate_qrcode">
         <intent
             android:action="sdker.qrcode.ACTION_GENERATE_FROM_CLIPBOARD"
-            android:targetClass="com.zii.sdk.helper.QrCodeActivity"
-            android:targetPackage="com.zii.sdk.helper" />
+            android:targetClass="com.zii.sdker.QrCodeActivity"
+            android:targetPackage="com.zii.sdker" />
     </shortcut>
     <!--    <shortcut-->
     <!--        android:enabled="true"-->
@@ -40,7 +40,7 @@
     <!--        android:shortcutShortLabel="@string/shortcut_label_transport">-->
     <!--        <intent-->
     <!--            android:action="sdker.transport.ACTION_TEXT_FROM_CLIPBOARD"-->
-    <!--            android:targetClass="com.zii.sdk.helper.MainActivity"-->
-    <!--            android:targetPackage="com.zii.sdk.helper" />-->
+    <!--            android:targetClass="com.zii.sdk.MainActivity"-->
+    <!--            android:targetPackage="com.zii.sdker" />-->
     <!--    </shortcut>-->
 </shortcuts>

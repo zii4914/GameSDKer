@@ -9,11 +9,11 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.zii.sdk.helper"
+        applicationId "com.zii.sdker"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.2"
+        versionCode 5
+        versionName "1.2.1"
     }
 
     signingConfigs {

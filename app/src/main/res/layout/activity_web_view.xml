@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".WebViewActivity">
 
-    <com.zii.sdk.helper.utils.X5WebView
+    <com.zii.sdker.utils.X5WebView
         android:id="@+id/x5webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
