@@ -8,6 +8,6 @@ object MyUtils {
     fun copyAndToast(content: CharSequence?) {
         if (content.isNullOrEmpty()) return
         ClipboardUtils.copyText(content)
-        ToastUtils.showLong("复制成功")
+        ToastUtils.showShort("复制成功")
     }
 }

@@ -10,15 +10,11 @@ import android.widget.TextView
 import android.widget.Toast
 import cn.bingoogolapple.qrcode.core.BarcodeType
 import cn.bingoogolapple.qrcode.core.QRCodeView
-import com.blankj.utilcode.util.ClipboardUtils
-import com.blankj.utilcode.util.IntentUtils
-import com.blankj.utilcode.util.SPUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
 import com.lxj.xpopup.XPopup
 import com.lxj.xpopup.core.BasePopupView
-import com.lxj.xpopup.interfaces.SimpleCallback
 import com.zii.sdker.base.BaseActivity
 import com.zii.sdker.const.CommonConst
 import com.zii.sdker.databinding.ActivityScanQrCodeBinding
@@ -113,23 +109,15 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
     }
 
     override fun onScanQRCodeSuccess(result: String?) {
-        if (dialogResult == null) {
-            createResultDialog(result)
-        } else {
-            dialogResult?.dismissWith {
-                dialogResult = null
-                createResultDialog(result)
-            }
-        }
+        LogUtils.d("扫描结果：$result  $dialogResult")
+        dialogResult?.dismiss()
+        dialogResult = null
+        createResultDialog(result)
     }
 
     private fun createResultDialog(result: String?) {
         dialogResult = XPopup.Builder(this)
-            .setPopupCallback(object : SimpleCallback() {
-                override fun onDismiss(popupView: BasePopupView?) {
-                    binding.zxingView.startSpot()
-                }
-            }).asCustom(object : BasePopupView(this) {
+            .asCustom(object : BasePopupView(this) {
                 override fun onCreate() {
                     val tvResult = findViewById<TextView>(R.id.tv_result)
                     val tvTitle = findViewById<TextView>(R.id.tv_title)
@@ -145,14 +133,13 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     //点击事件
                     val clickCopy = OnClickListener {
                         ClipboardUtils.copyText(displayResult)
-                        ToastUtils.showLong("复制成功!")
+                        ToastUtils.showShort("复制成功!")
                     }
                     tvResult.setOnClickListener(clickCopy)
                     tvTitle.setOnClickListener(clickCopy)
                     btnBack.setOnClickListener { dismissWith { finish() } }
                     btnShare.setOnClickListener {
                         dismissWith {
-                            binding.zxingView.startSpot()
                             startActivity(IntentUtils.getShareTextIntent(displayResult))
                         }
                     }
@@ -181,6 +168,12 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
 
                 override fun getPopupLayoutId(): Int {
                     return R.layout.dialog_scan_result
+                }
+
+                override fun doAfterDismiss() {
+                    super.doAfterDismiss()
+                    dialogResult = null
+                    binding.zxingView.startSpot()
                 }
             }).also { it.show() }
     }

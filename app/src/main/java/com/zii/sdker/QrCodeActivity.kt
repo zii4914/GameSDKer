@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder
 import com.blankj.utilcode.util.ClipboardUtils
+import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.zii.sdker.base.BaseActivity
@@ -81,8 +82,10 @@ class QrCodeActivity : BaseActivity(), TextWatcher {
 //                    val msg = "图片生成失败：${if (bitmap == null) "无内容" else content}"
 //                    Toast.makeText(this@QrCodeActivity, msg, Toast.LENGTH_SHORT).show()
                     binding.ivQrcode.setImageResource(R.drawable.loading_failure_iamge)
-                } else
+                } else {
                     binding.ivQrcode.setImageBitmap(bitmap)
+                }
+                KeyboardUtils.hideSoftInput(binding.ivQrcode)
             }
         }
     }
