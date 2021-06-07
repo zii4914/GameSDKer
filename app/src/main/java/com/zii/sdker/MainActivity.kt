@@ -49,16 +49,25 @@ class MainActivity : BaseActivity() {
             val url = "https://cp.anyknew.com/" //拷贝兔
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }
+        binding.btnShareApk.setOnClickListener {
+            startActivity(Intent(this, ApkListActivity::class.java))
+        }
     }
 
     private fun permissions() {
         val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             PermissionUtils.permission(
                 Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.QUERY_ALL_PACKAGES
             )
         } else {
-            PermissionUtils.permission(Manifest.permission.CAMERA)
+            PermissionUtils.permission(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
         }
         permission.callback { isAllGranted, granted, deniedForever, denied ->
             LogUtils.d("授权：", granted, "永远拒绝：", deniedForever, "普通拒绝：", denied)

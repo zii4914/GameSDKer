@@ -86,4 +86,13 @@
         app:layout_constraintRight_toRightOf="@id/btn_qrcode_scan"
         app:layout_constraintTop_toTopOf="@id/btn_transport_text" />
 
+    <Button
+        android:id="@+id/btn_share_apk"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="发送应用"
+        app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_identify"
+        app:layout_constraintRight_toRightOf="@id/btn_qrcode_identify"
+        app:layout_constraintTop_toBottomOf="@id/btn_dev_settings" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
