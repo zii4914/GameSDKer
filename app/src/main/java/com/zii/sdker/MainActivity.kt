@@ -2,7 +2,6 @@ package com.zii.sdker
 
 import android.Manifest
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import com.blankj.utilcode.util.LogUtils
@@ -12,6 +11,7 @@ import com.zii.sdker.base.BaseActivity
 import com.zii.sdker.const.CommonConst
 import com.zii.sdker.databinding.ActivityMainBinding
 import com.zii.sdker.topactivity.AppShortcutsActivity
+import com.zii.sdker.utils.MyUtils
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -47,7 +47,7 @@ class MainActivity : BaseActivity() {
         }
         binding.btnTransportAll.setOnClickListener {
             val url = "https://cp.anyknew.com/" //拷贝兔
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            MyUtils.openUrl(url, this)
         }
         binding.btnShareApk.setOnClickListener {
             startActivity(Intent(this, ApkListActivity::class.java))
