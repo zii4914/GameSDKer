@@ -19,7 +19,7 @@ object MyUtils {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         if (AppUtils.isAppInstalled("com.quark.browser")) {
             //优先用夸克浏览器
-            intent.setPackage("com.quark.browser")
+//            intent.setPackage("com.quark.browser")
         }
         return intent
     }

@@ -52,6 +52,12 @@ class MainActivity : BaseActivity() {
         binding.btnShareApk.setOnClickListener {
             startActivity(Intent(this, ApkListActivity::class.java))
         }
+        binding.btnWebviewDebug.setOnClickListener {
+            startActivity(Intent(this, WebViewActivity::class.java).also {
+                val tsUrl = "https://www.pangdanwang.com/product/demo?lp=43&appId=42&shareType=1&channelId=33";
+                it.putExtra(CommonConst.Extra.URL, tsUrl)
+            })
+        }
     }
 
     private fun permissions() {
