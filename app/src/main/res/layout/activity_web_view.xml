@@ -35,6 +35,16 @@
             android:minWidth="0dp"
             android:padding="2dp"
             android:text="Go" />
+
+        <Button
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:includeFontPadding="false"
+            android:minWidth="0dp"
+            android:padding="2dp"
+            android:text="···" />
     </LinearLayout>
 
     <WebView

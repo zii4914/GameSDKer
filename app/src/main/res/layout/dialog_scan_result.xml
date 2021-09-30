@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/dialog_default"
-    android:layout_height="200dp">
+    android:layout_height="wrap_content"
+    android:minHeight="200dp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -15,27 +16,98 @@
         android:textSize="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_result"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.noober.background.view.BLTextView
         android:id="@+id/tv_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
         android:background="@color/purple_700"
         android:ellipsize="end"
         android:gravity="center"
         android:maxWidth="240dp"
         android:maxLines="5"
         android:minWidth="200dp"
-        android:padding="8dp"
         android:textColor="@color/black"
         android:textSize="12dp"
         app:bl_corners_radius="12dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_back"
+        app:layout_constraintBottom_toTopOf="@id/btn_link_chrome"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="扫描结果在这里哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈好安徽扫描结果在这里哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈好安徽扫描结果在这里哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈好安徽" />
+
+    <com.noober.background.view.BLButton
+        android:id="@+id/btn_link_chrome"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="4dp"
+        android:includeFontPadding="false"
+        android:text="Chrome"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:bl_corners_radius="20dp"
+        app:bl_pressed_solid_color="@color/btn_pressed"
+        app:bl_unPressed_solid_color="@color/btn_unpressed"
+        app:layout_constraintBottom_toTopOf="@id/btn_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/btn_link_quark" />
+
+    <com.noober.background.view.BLButton
+        android:id="@+id/btn_link_quark"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:includeFontPadding="false"
+        android:text="Quark"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:bl_corners_radius="20dp"
+        app:bl_pressed_solid_color="@color/btn_pressed"
+        app:bl_unPressed_solid_color="@color/btn_unpressed"
+        app:layout_constraintBottom_toBottomOf="@id/btn_link_chrome"
+        app:layout_constraintLeft_toRightOf="@id/btn_link_chrome"
+        app:layout_constraintRight_toRightOf="@id/btn_link_webview" />
+
+    <com.noober.background.view.BLButton
+        android:id="@+id/btn_link_webview"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:includeFontPadding="false"
+        android:text="Web\nView"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:bl_corners_radius="20dp"
+        app:bl_pressed_solid_color="@color/btn_pressed"
+        app:bl_unPressed_solid_color="@color/btn_unpressed"
+        app:layout_constraintBottom_toBottomOf="@id/btn_link_chrome"
+        app:layout_constraintLeft_toRightOf="@id/btn_link_quark"
+        app:layout_constraintRight_toLeftOf="@id/btn_link_system" />
+
+    <com.noober.background.view.BLButton
+        android:id="@+id/btn_link_system"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:includeFontPadding="false"
+        android:text="System"
+        android:textAllCaps="false"
+        android:textSize="10dp"
+        app:bl_corners_radius="20dp"
+        app:bl_pressed_solid_color="@color/btn_pressed"
+        app:bl_unPressed_solid_color="@color/btn_unpressed"
+        app:layout_constraintBottom_toBottomOf="@id/btn_link_chrome"
+        app:layout_constraintLeft_toRightOf="@id/btn_link_webview"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_link_open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="btn_link_chrome,btn_link_quark,btn_link_webview,btn_link_system"
+        tools:visibility="visible" />
 
     <com.noober.background.view.BLButton
         android:id="@+id/btn_back"
@@ -62,7 +134,8 @@
         app:bl_stroke_width="1.5px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/btn_back"
-        app:layout_constraintRight_toLeftOf="@id/btn_share" />
+        app:layout_constraintRight_toLeftOf="@id/btn_share"
+        tools:visibility="visible" />
 
     <com.noober.background.view.BLButton
         android:id="@+id/btn_share"

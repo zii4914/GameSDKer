@@ -6,9 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.webkit.*
+import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.lxj.xpopup.XPopup
 import com.zii.sdker.base.BaseActivity
 import com.zii.sdker.const.CommonConst
 import com.zii.sdker.databinding.ActivityWebViewBinding
@@ -28,19 +30,40 @@ class WebViewActivity : BaseActivity() {
 
         WebView.setWebContentsDebuggingEnabled(true)//允许chrome inspect 调试
 
-//        binding.webview.webChromeClient = chromeClient()
+        binding.webview.webChromeClient = chromeClient()
         binding.webview.webViewClient = webviewClient()
         webviewSetting()
 
         val url = intent.getStringExtra(CommonConst.Extra.URL).orEmpty()
-        binding.webview.loadUrl(url)
-        binding.edtUrl.setText(url)
+        if (url.isNotEmpty()) {
+            binding.webview.loadUrl(url)
+            binding.edtUrl.setText(url)
+            if (!RegexUtils.isURL(url)) {
+                ToastUtils.showLong("网址错误：$url")
+            }
+        }
         binding.btnGo.setOnClickListener {
             val loadUrl = binding.edtUrl.text.toString()
             binding.webview.loadUrl(loadUrl)
         }
+        binding.btnMore.setOnClickListener {
+            XPopup.Builder(this)
+                .atView(it)
+                .asAttachList(arrayOf("粘贴", "复制", "清空", "清除缓存"), intArrayOf()) { position, text ->
+                    when (position) {
+                        0 -> loadUrl(ClipboardUtils.getText().toString())
+                        1 -> ClipboardUtils.copyText(binding.edtUrl.text)
+                        2 -> binding.edtUrl.text.clear()
+                        3 -> binding.webview.clearCache(true)
+                    }
+                }.show()
+        }
 
-        if (!RegexUtils.isURL(url)) ToastUtils.showLong("网址错误：$url")
+    }
+
+    private fun loadUrl(url: String) {
+        binding.edtUrl.setText(url)
+        binding.webview.loadUrl(url)
     }
 
     private fun webviewSetting() {
@@ -109,6 +132,10 @@ class WebViewActivity : BaseActivity() {
                 i.type = "*/*"
                 startActivityForResult(Intent.createChooser(i, "选择文件"), rc_choose_files)
                 return true
+            }
+
+            override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
+                return super.onJsAlert(view, url, message, result)
             }
         }
     }

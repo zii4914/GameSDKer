@@ -7,6 +7,7 @@ import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.Group
 import cn.bingoogolapple.qrcode.core.BarcodeType
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.blankj.utilcode.util.*
@@ -123,6 +124,11 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     val btnBack = findViewById<Button>(R.id.btn_back)
                     val btnOpenUrl = findViewById<Button>(R.id.btn_open_url)
                     val btnShare = findViewById<Button>(R.id.btn_share)
+                    val btnLinkChrome = findViewById<Button>(R.id.btn_link_chrome)
+                    val btnLinkQuark = findViewById<Button>(R.id.btn_link_quark)
+                    val btnLinkWebview = findViewById<Button>(R.id.btn_link_webview)
+                    val btnLinkSystem = findViewById<Button>(R.id.btn_link_system)
+                    val groupLinkOpen = findViewById<Group>(R.id.group_link_open)
 
                     val isResultEmpty = result.isNullOrEmpty()
                     val displayResult = result.orEmpty().ifEmpty { "扫描内容为空~" }
@@ -145,6 +151,10 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     btnOpenUrl.setOnClickListener {
                         MyUtils.openUrl(displayResult, this@ScanQrCodeActivity)
                     }
+                    btnLinkChrome.setOnClickListener { MyUtils.openUrlChrome(displayResult, this@ScanQrCodeActivity) }
+                    btnLinkQuark.setOnClickListener { MyUtils.openUrlQuark(displayResult, this@ScanQrCodeActivity) }
+                    btnLinkWebview.setOnClickListener { MyUtils.openUrlWebview(displayResult, this@ScanQrCodeActivity) }
+                    btnLinkSystem.setOnClickListener { MyUtils.openUrlSystem(displayResult, this@ScanQrCodeActivity) }
 
                     //内容显示
                     tvResult.isEnabled = !isResultEmpty
@@ -154,6 +164,7 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
                     val isUrl = !isResultEmpty
                             && (displayResult.startsWith("http://") || displayResult.startsWith("https://"))
                     btnOpenUrl.visibility = if (isUrl) View.VISIBLE else View.GONE
+                    groupLinkOpen.visibility = if (isUrl) View.VISIBLE else View.GONE
 
                     //自动复制开关
                     if (toggleCopy()) {

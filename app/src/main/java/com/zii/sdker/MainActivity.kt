@@ -4,8 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
+import com.blankj.utilcode.util.RegexUtils
 import com.lxj.xpopup.XPopup
 import com.zii.sdker.base.BaseActivity
 import com.zii.sdker.const.CommonConst
@@ -54,8 +56,9 @@ class MainActivity : BaseActivity() {
         }
         binding.btnWebviewDebug.setOnClickListener {
             startActivity(Intent(this, WebViewActivity::class.java).also {
-                val tsUrl = "https://www.pangdanwang.com/product/demo?lp=43&appId=42&shareType=1&channelId=33";
-                it.putExtra(CommonConst.Extra.URL, tsUrl)
+                val text = ClipboardUtils.getText().toString()
+                val targetUrl = if (RegexUtils.isURL(text)) text else "https://www.baidu.com/"
+                it.putExtra(CommonConst.Extra.URL, targetUrl)
             })
         }
     }
