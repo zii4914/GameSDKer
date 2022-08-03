@@ -5,7 +5,10 @@ import android.content.pm.Signature
 import android.os.Bundle
 import android.util.Base64
 import android.widget.ArrayAdapter
-import com.blankj.utilcode.util.*
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ClipboardUtils
+import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.zii.sdker.base.BaseActivity
 import com.zii.sdker.databinding.ActivityAppSignaturesBinding
 import com.zii.sdker.utils.MyUtils
@@ -41,8 +44,9 @@ class AppSignaturesActivity : BaseActivity() {
             val md5 = AppUtils.getAppSignaturesMD5(appPackage)[0]
             val sha1 = AppUtils.getAppSignaturesSHA1(appPackage)[0]
             val sha256 = AppUtils.getAppSignaturesSHA256(appPackage)[0]
-            val wechat = md5.replace(":", "").toLowerCase(Locale.getDefault())
+            val wechat = md5.replace(":", "").lowercase(Locale.getDefault())
 
+            binding.tvPackageName.text = "应用：$appPackage"
             binding.tvWechat.text = wechat
             binding.tvKeyHash.text = keyHash
             binding.tvMd5.text = md5
@@ -89,12 +93,15 @@ class AppSignaturesActivity : BaseActivity() {
             return@setOnLongClickListener true
         }
         binding.btnCopyAll.setOnClickListener {
+            val name = binding.tvPackageName.text.toString()
             val wechat = binding.tvWechat.text.toString()
             val hashKey = binding.tvKeyHash.text.toString()
             val md5 = binding.tvMd5.text.toString()
             val sha1 = binding.tvSHA1.text.toString()
             val sha256 = binding.tvSha256.text.toString()
-            val text = "应用签名:$wechat"
+            val text = "应用：$name"
+                .plus("\n")
+                .plus("应用签名:$wechat")
                 .plus("\n")
                 .plus("HashKey:$hashKey")
                 .plus("\n")

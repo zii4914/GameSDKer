@@ -29,7 +29,7 @@ public class NotificationActionReceiver extends BroadcastReceiver {
         if (!SPHelper.isNotificationToggleEnabled(context)) {
             return;
         }
-        PendingIntent pIntent = PendingIntent.getActivity(context, 0, new Intent(context, GetTopActivity.class), 0);
+        PendingIntent pIntent = PendingIntent.getActivity(context, 0, new Intent(context, GetTopActivity.class), PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(R.string.is_running,
                         context.getString(R.string.app_name)))
@@ -60,7 +60,7 @@ public class NotificationActionReceiver extends BroadcastReceiver {
     public static PendingIntent getPendingIntent(Context context, int command) {
         Intent intent = new Intent(ACTION_NOTIFICATION_RECEIVER);
         intent.putExtra(EXTRA_NOTIFICATION_ACTION, command);
-        return PendingIntent.getBroadcast(context, command, intent, 0);
+        return PendingIntent.getBroadcast(context, command, intent, PendingIntent.FLAG_IMMUTABLE);
     }
 
     public static void cancelNotification(Context context) {

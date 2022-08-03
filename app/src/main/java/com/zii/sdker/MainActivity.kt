@@ -61,6 +61,9 @@ class MainActivity : BaseActivity() {
                 it.putExtra(CommonConst.Extra.URL, targetUrl)
             })
         }
+        binding.btnDeviceInfo.setOnClickListener {
+            startActivity(Intent(this, DeviceInfoActivity::class.java))
+        }
     }
 
     private fun permissions() {

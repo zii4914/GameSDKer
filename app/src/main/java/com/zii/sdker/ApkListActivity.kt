@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.inputmethod.EditorInfo
@@ -182,7 +183,8 @@ class ApkListActivity : BaseActivity() {
         val packagePath = it.sourceDir
         val fileSize = ConvertUtils.byte2FitMemorySize(File(packagePath).length(), 1)
         val versionName = packageInfo.versionName
-        val versionCode = packageInfo.versionCode
+        val versionCode =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode.toInt() else packageInfo.versionCode
         val installTime = dateFormat.format(Date(packageInfo.firstInstallTime))
         val updateTime = dateFormat.format(Date(packageInfo.lastUpdateTime))
         val isSystem = ApplicationInfo.FLAG_SYSTEM and it.flags != 0

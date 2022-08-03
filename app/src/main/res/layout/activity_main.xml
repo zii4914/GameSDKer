@@ -104,4 +104,16 @@
         app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_generate"
         app:layout_constraintRight_toRightOf="@id/btn_qrcode_generate"
         app:layout_constraintTop_toBottomOf="@id/btn_transport_text" />
+
+    <Button
+        android:id="@+id/btn_device_info"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="设备信息"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@id/btn_webview_debug"
+        app:layout_constraintLeft_toLeftOf="@id/btn_qrcode_scan"
+        app:layout_constraintRight_toRightOf="@id/btn_qrcode_scan"
+        app:layout_constraintTop_toTopOf="@id/btn_webview_debug" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
