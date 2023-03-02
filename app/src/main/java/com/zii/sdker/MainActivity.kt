@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.ClipboardUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.PermissionUtils
@@ -63,6 +64,11 @@ class MainActivity : BaseActivity() {
         }
         binding.btnDeviceInfo.setOnClickListener {
             startActivity(Intent(this, DeviceInfoActivity::class.java))
+        }
+        binding.btnPermission.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= 33) {
+                ContextCompat.checkSelfPermission(this,Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
     }
 

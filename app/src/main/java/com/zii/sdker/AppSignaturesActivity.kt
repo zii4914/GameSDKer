@@ -5,10 +5,7 @@ import android.content.pm.Signature
 import android.os.Bundle
 import android.util.Base64
 import android.widget.ArrayAdapter
-import com.blankj.utilcode.util.AppUtils
-import com.blankj.utilcode.util.ClipboardUtils
-import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.*
 import com.zii.sdker.base.BaseActivity
 import com.zii.sdker.databinding.ActivityAppSignaturesBinding
 import com.zii.sdker.utils.MyUtils
@@ -20,11 +17,17 @@ import java.util.*
  * 应用签名
  */
 class AppSignaturesActivity : BaseActivity() {
+    private val KEY_LAST_PKG_INPUT =  "LAST_PKG_INPUT";
     private lateinit var binding: ActivityAppSignaturesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAppSignaturesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val lastInput = SPStaticUtils.getString(KEY_LAST_PKG_INPUT)
+        if (!lastInput.isNullOrEmpty())
+            binding.edtPackageName.setText(lastInput)
 
         listInstalledApplication()
 
@@ -39,6 +42,8 @@ class AppSignaturesActivity : BaseActivity() {
                 ToastUtils.showLong("该应用不存在")
                 return@setOnClickListener
             }
+
+            SPStaticUtils.put(KEY_LAST_PKG_INPUT,appPackage);
 
             val keyHash = getAppSignaturesKeyHash(appPackage)?.get(0)
             val md5 = AppUtils.getAppSignaturesMD5(appPackage)[0]
@@ -56,9 +61,10 @@ class AppSignaturesActivity : BaseActivity() {
             binding.edtPackageName.clearFocus()
             KeyboardUtils.hideSoftInput(binding.edtPackageName)
         }
-        binding.btnCopy.setOnClickListener {
-            val appPackage = binding.edtPackageName.text.toString()
-            ClipboardUtils.copyText(appPackage)
+        binding.btnCom.setOnClickListener {
+            binding.edtPackageName.setText("com.")
+            KeyboardUtils.showSoftInput(binding.edtPackageName)
+            binding.edtPackageName.setSelection("com.".length)
         }
         binding.btnPast.setOnClickListener {
             binding.edtPackageName.setText(ClipboardUtils.getText().toString())
