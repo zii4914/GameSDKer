@@ -23,24 +23,4 @@
             android:targetPackage="com.zii.sdker" />
     </shortcut>
 
-    <shortcut
-        android:enabled="true"
-        android:icon="@drawable/ic_qrcode"
-        android:shortcutId="sc_generate_qrcode"
-        android:shortcutShortLabel="@string/shortcut_label_generate_qrcode">
-        <intent
-            android:action="sdker.qrcode.ACTION_GENERATE_FROM_CLIPBOARD"
-            android:targetClass="com.zii.sdker.QrCodeActivity"
-            android:targetPackage="com.zii.sdker" />
-    </shortcut>
-    <!--    <shortcut-->
-    <!--        android:enabled="true"-->
-    <!--        android:icon="@drawable/ic_shortcut"-->
-    <!--        android:shortcutId="sc_transport"-->
-    <!--        android:shortcutShortLabel="@string/shortcut_label_transport">-->
-    <!--        <intent-->
-    <!--            android:action="sdker.transport.ACTION_TEXT_FROM_CLIPBOARD"-->
-    <!--            android:targetClass="com.zii.sdk.MainActivity"-->
-    <!--            android:targetPackage="com.zii.sdker" />-->
-    <!--    </shortcut>-->
 </shortcuts>
