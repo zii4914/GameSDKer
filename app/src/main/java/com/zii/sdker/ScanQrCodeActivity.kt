@@ -1,16 +1,29 @@
 package com.zii.sdker
 
+import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.Group
+import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import cn.bingoogolapple.qrcode.core.BarcodeType
 import cn.bingoogolapple.qrcode.core.QRCodeView
 import com.blankj.utilcode.util.*
+import com.bumptech.glide.Glide
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.chad.library.adapter.base.listener.OnItemLongClickListener
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
 import com.lxj.xpopup.XPopup
@@ -19,6 +32,8 @@ import com.zii.sdker.base.BaseActivity
 import com.zii.sdker.const.CommonConst
 import com.zii.sdker.databinding.ActivityScanQrCodeBinding
 import com.zii.sdker.utils.MyUtils
+import java.io.File
+import java.net.URL
 
 /**
  * 扫描二维码
@@ -33,7 +48,7 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
     private lateinit var binding: ActivityScanQrCodeBinding
     private var isActionFinish = false
     private var dialogResult: BasePopupView? = null
-
+    private var listAdapter: ListAdapter = ListAdapter(mutableListOf())
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScanQrCodeBinding.inflate(layoutInflater)
@@ -56,6 +71,24 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
         binding.tvCopyAuto.isSelected = toggleCopy()
 
         handleAction()
+
+        val spHistorySet = SPUtils.getInstance().getStringSet(CommonConst.Shared.KEY_SCAN_HISTORY)
+        listAdapter.data = spHistorySet.toMutableList()
+        Log.d("zii-", "onCreate: $spHistorySet")
+        listAdapter.setOnItemClickListener { adapter, _, position ->
+            val url = adapter.data[position] as String
+            val isUrl = url.startsWith("http://") || url.startsWith("https://")
+            if (isUrl)
+                MyUtils.openUrl(url, this@ScanQrCodeActivity)
+            else
+                ToastUtils.showShort("不是链接，无法打开")
+        }
+        listAdapter.setOnItemLongClickListener(OnItemLongClickListener { adapter, view, position ->
+            MyUtils.copyAndToast(adapter.data[position] as String)
+            return@OnItemLongClickListener true
+        })
+        binding.recv.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        binding.recv.adapter = listAdapter
     }
 
     private fun handleAction() {
@@ -113,6 +146,15 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
         dialogResult?.dismiss()
         dialogResult = null
         createResultDialog(result)
+        val spHistorySet = SPUtils.getInstance().getStringSet(CommonConst.Shared.KEY_SCAN_HISTORY)
+        val toMutableList = spHistorySet.toMutableList()
+        toMutableList.remove(result)
+        toMutableList.add(0,result)
+        val toMutableSet = toMutableList.toMutableSet()
+        SPUtils.getInstance().put(CommonConst.Shared.KEY_SCAN_HISTORY, toMutableSet)
+        LogUtils.d("保存结果: $spHistorySet ........... $toMutableSet")
+        listAdapter.data = toMutableList
+        listAdapter.notifyDataSetChanged()
     }
 
     private fun createResultDialog(result: String?) {
@@ -207,4 +249,22 @@ class ScanQrCodeActivity : BaseActivity(), QRCodeView.Delegate {
         Toast.makeText(this, "打开相机出错", Toast.LENGTH_SHORT).show()
     }
 
+    private class ListAdapter(data: MutableList<String>) :
+        BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_scan_history, data) {
+
+        override fun convert(holder: BaseViewHolder, item: String) {
+            val tv = holder.getView<TextView>(R.id.item)
+            tv.text = formatText(item)
+        }
+
+        private fun formatText(item: String):String {
+            // https://play.google.com/store/apps/details?id=com.proficientcity.ddtankbrazil
+            if (item.startsWith("https://play.google.com/store/apps/details")){
+                val uri = Uri.parse(item)
+                val appId = uri.getQueryParameter("id")
+                return "Play : $appId"
+            }
+            return item
+        }
+    }
 }

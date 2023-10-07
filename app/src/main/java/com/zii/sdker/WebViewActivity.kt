@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.webkit.*
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.blankj.utilcode.util.*
 import com.lxj.xpopup.XPopup
@@ -57,12 +58,15 @@ class WebViewActivity : BaseActivity() {
         binding.btnMore.setOnClickListener {
             XPopup.Builder(this)
                 .atView(it)
-                .asAttachList(arrayOf("粘贴", "复制", "清空", "清除缓存"), intArrayOf()) { position, text ->
+                .asAttachList(arrayOf("粘贴", "复制", "清空", "清除缓存","设置代理"), intArrayOf()) { position, text ->
                     when (position) {
                         0 -> loadUrl(ClipboardUtils.getText().toString())
                         1 -> ClipboardUtils.copyText(binding.edtUrl.text)
                         2 -> binding.edtUrl.text.clear()
                         3 -> binding.webview.clearCache(true)
+                        4 -> {binding.webview.settings.userAgentString = "GameSDKer";
+                            Toast.makeText(this, "设置代理-GameSDKer", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }.show()
         }

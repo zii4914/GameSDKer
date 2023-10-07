@@ -7,6 +7,8 @@ object CommonConst {
         /** 二维码扫描：自动复制开关 */
         const val KEY_SCAN_COPY_TOGGLE = "key_scan_copy_toggle";
 
+        /** 扫描历史 */
+        const val KEY_SCAN_HISTORY = "key_scan_history";
     }
 
     object Action {

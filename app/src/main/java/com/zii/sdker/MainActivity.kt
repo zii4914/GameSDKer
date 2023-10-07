@@ -73,7 +73,12 @@ class MainActivity : BaseActivity() {
     }
 
     private fun permissions() {
-        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S_V2) {
+            PermissionUtils.permission(
+                Manifest.permission.CAMERA,
+                Manifest.permission.QUERY_ALL_PACKAGES
+            )
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             PermissionUtils.permission(
                 Manifest.permission.CAMERA,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
